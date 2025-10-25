@@ -15,13 +15,38 @@ config.test_exec_root = config.my_obj_root
 config.suffixes = ['.cpp', '.cppm']
 config.excludes = ['Inputs', 'ignore']
 
+
+db_driver = ""
+db_target = ""
+if config.test_db:
+    db_log = os.path.join(config.test_exec_root, "process.log")
+    print(f"Database log path: {db_log}")
+    with open(db_log, 'w'):
+        pass
+
+    db_driver = (""
+        + f'echo %s >> {db_log} &&'
+        + f"NEO4J_USER={config.neo4j_user} NEO4J_PASSWORD={config.neo4j_password} NEO4J_ADDRESS={config.neo4j_address} NEO4J_DATABASE={config.neo4j_database} NEO4J_UID_ALLOC_SIZE={config.neo4j_uid_alloc_size} "
+    )
+    db_target = ' -vast-test-db'
+    if config.clean_db:
+        db_target += ' -vast-clean-db'
+
 # FileCheck command and pattern, %check and %output-suffix used in %FILECHECK so they should defined after %FILECHECK
 config.substitutions.append((r'%filecheck', 'echo \'%check\' > %t.check && FileCheck %t.check --input-file=%t%output-suffix && rm %t.check'))
 config.substitutions.append((r'%check', '// CHECK-NOT: {{unsup\.|unreach\.|#unsup}}'))
 
-config.substitutions.append((r'%driver', "timeout -k 0s 10s " + os.path.join(config.vast_path,'vast-front' )))
-config.substitutions.append((r'%target', '-vast-emit-mlir=' + config.vast_target + " -fcxx-exceptions -fexceptions"))
-config.substitutions.append((r'%output-suffix', '.' + config.vast_target))
+config.substitutions.append((r'%driver', ""
+                             + db_driver
+                             + "timeout -k 0s 60s "
+                             + os.path.join(config.vast_path,'vast-front')
+                            ))
+config.substitutions.append((r'%target',
+                             '-vast-emit-mlir=' + config.vast_target
+                             + " -fcxx-exceptions -fexceptions"
+                             + db_target
+                            ))
+config.substitutions.append((r'%output-suffix', '.' + config.vast_target + '.mlir'))
 
 # clang -cc1 is the frontend, clang is the driver. The driver invokes the frontend with options appropriate for your system
 # find clang SYSTEM include search path
