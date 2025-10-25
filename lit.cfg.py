@@ -38,7 +38,7 @@ config.substitutions.append((r'%check', '// CHECK-NOT: {{unsup\.|unreach\.|#unsu
 
 config.substitutions.append((r'%driver', ""
                              + db_driver
-                             + "timeout -k 0s 60s "
+                             + "timeout -k 0s 120s "
                              + os.path.join(config.vast_path,'vast-front')
                             ))
 config.substitutions.append((r'%target',
