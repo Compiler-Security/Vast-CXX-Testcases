@@ -3,12 +3,26 @@
 ### 快速开始
 
 1. 本测试集使用llvm lit运行测试，请确保已安装了lit
-2. 根据`config.example`创建配置文件`config`，并填入本机环境
+2. 根据`config.example`创建配置文件`config`，并填入本机环境。一些重要配置项如下：
+    - `TESTCASE`：指定`testcases/`下的一个测试用例子集运行测试。
+    该变量为一个分号隔开的目录或文件的列表（`"test1[;test2[;test3...]]"`），每一项均为相对于`testcases/`的相对路径。
+    为`"."`或为`""`时测试所有测试用例
+    - `PARALLEL`：并行进程数，每个编译单元使用一个vast-front进程编译。启用`TEST_DB`测试数据库时速度较慢，建议使用16或32进程性能最佳
+    - `CLEAN_DB`：使每个进程在将本编译单元dump到数据库前先清空数据库。因此不能和`PARALLEL > 1`结合使用
 3. 运行自动化测试脚本`test.sh`（注意：必须在测试集根目录下运行），该脚本：
    1. 读取`config`中的配置
    2. 拉取最新提交。目前测试用例的分类尚未完成，可能随时更新
    3. 配置并运行测试
    4. 运行脚本统计测试结果
+4. 查看测试结果
+   - `build/Testing/Temporary/LastTest.log`显示具体测试结果（报错信息、测试时间等）
+   - `build/process.log`显示实时测试进度，数据库测试在16进程下大约需要5~6分钟
+
+#### 注意事项
+- 一个编译单元可能会按照不同参数被编译多次，因此在`build/process.log`中观察到重复的文件是正常的
+- verifyDB pass在dump到数据库前会删除同名的module节点，保证parse入口唯一，因此在每次测试前不清理数据库不会导致错误。\
+  但verifyDB pass只会删除module节点，不会递归删除，因此为避免数据库过大，在每次运行测试前，建议手动清空数据库：
+  `MATCH (n) DETACH DELETE n;`
 
 ### 测试集结构
 
@@ -17,18 +31,6 @@
   - `Inputs/, typeinfo`：测试用例的依赖
   - `ignore/`：忽略的测试用例
 - `lit.cfg.py, lit.site.cfg.py.in`：lit的配置文件
-
-### 测试方法
-
-本测试集由cmake配置测试环境并启动测试：
-```bash
-mkdir build && cd build
-cmake .. [-DTESTCASE="test1[;test2[;test3...]]"]
-ctest
-```
-测试结果可在`build/Testing/Temporary/LastTest.log`中查看
-
-变量`TESTCASE`允许你指定`testcases/`下的一个测试用例子集运行测试，默认情况下测试所有测试用例。该变量为一个目录或文件的列表，每一项均为相对于`testcases/`的相对路径
 
 ### 测试集配置
 

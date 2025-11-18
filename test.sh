@@ -17,7 +17,7 @@ if [ -z ${LIT_BIN_NAME} ]; then
     LIT_BIN_NAME='lit'
 fi
 if [ -z ${TESTCASE} ]; then
-    TESTCASE=''
+    TESTCASE='.'
 fi
 if [ -z ${VAST_TARGET} ]; then
     VAST_TARGET='hl'

@@ -1,15 +1,16 @@
 VAST_PATH="" # absolute path to vast-front
 LIT_PATH="" # absolute path to lits
 LIT_BIN_NAME="" # the name of llvm-lit executable
-TESTCASE="" # testcases to run(the format is described in README)
+
+TESTCASE="." # testcases to run, format: "test1[;test2[;test3...]]", default to "." to run all testcases
 VAST_TARGET="hl" # target ir, hl/ll/llvm
 
 PARALLEL=1 # number of parallel process to run tests
 
 TEST_DB=False # enable test db, True/False
-CLEAN_DB=False # enable clean db before test, True/False
+CLEAN_DB=False # enable clean db before test, True/False(WARNING: can not set to True when PARALLEL > 1)
 NEO4J_USER="neo4j" # neo4j user name
 NEO4J_PASSWORD="neo4j" # neo4j password
 NEO4J_ADDRESS="localhost:7687" # neo4j address
 NEO4J_DATABASE="neo4j" # neo4j database name
-NEO4J_UID_ALLOC_SIZE=100 # neo4j uid alloc size
+NEO4J_UID_ALLOC_SIZE=100 # neo4j uid alloc batch size
