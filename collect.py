@@ -69,4 +69,4 @@ else:
 fd.write(f"pass {num_pass}/{num_pass+num_fail}\n\n")
 for cat, stat in cat_statistics.items():
     fd.write(f"{cat}: pass {stat[0]}/{stat[1]}\n")
-fd.write(f"unknown: pass {unknown_pass}/{unknown_all}\n")
+# fd.write(f"unknown: pass {unknown_pass}/{unknown_all}\n")

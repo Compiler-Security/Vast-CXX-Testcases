@@ -24,5 +24,5 @@ SET(PARALLEL 1 CACHE STRING "number of parallel process to run tests")
 
 add_test(
     NAME vast-test-cxx
-    COMMAND ${LIT} -v ${TESTCASE} -j ${PARALLEL}
+    COMMAND ${LIT} -v ${TESTCASE} -j ${PARALLEL} --time-tests
 )

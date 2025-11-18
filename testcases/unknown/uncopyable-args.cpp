@@ -1,7 +1,7 @@
-// RUN: %driver -cc1 %isys -std=c++11 %s %target -o %t%output-suffix && %filecheck
-// RUN: %driver -cc1 %isys -std=c++11 -fclang-abi-compat=4.0 %s %target -o %t%output-suffix && %filecheck
-// RUN: %driver -cc1 %isys -std=c++11 %s -fms-compatibility -fms-compatibility-version=18 %target -o %t%output-suffix && %filecheck
-// RUN: %driver -cc1 %isys -std=c++11 %s -fms-compatibility -fms-compatibility-version=19 %target -o %t%output-suffix && %filecheck
+// RUN: %driver -cc1 %isys -std=c++11 %s %target -o %t%output-suffix &>> /home/yibozhang/src/mlir/test/debug.log && %filecheck
+// RUN: %driver -cc1 %isys -std=c++11 -fclang-abi-compat=4.0 %s %target -o %t%output-suffix &>> /home/yibozhang/src/mlir/test/debug.log && %filecheck
+// RUN: %driver -cc1 %isys -std=c++11 %s -fms-compatibility -fms-compatibility-version=18 %target -o %t%output-suffix &>> /home/yibozhang/src/mlir/test/debug.log && %filecheck
+// RUN: %driver -cc1 %isys -std=c++11 %s -fms-compatibility -fms-compatibility-version=19 %target -o %t%output-suffix &>> /home/yibozhang/src/mlir/test/debug.log && %filecheck
 
 namespace trivial {
 struct A {

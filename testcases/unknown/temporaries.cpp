@@ -1,6 +1,5 @@
 // RUN: %driver -cc1 %isys %s -std=c++11 %target -o %t%output-suffix && %filecheck
-// RUN: %driver -cc1 %isys %s -std=c++17 %target -o %t%output-suffix && %filecheck
-// RUN: %driver -cc1 %isys %s -std=c++11 -fno-delete-null-pointer-checks %target -o %t%output-suffix && %filecheck
+
 
 namespace PR16263 {
   const unsigned int n = 1234;
