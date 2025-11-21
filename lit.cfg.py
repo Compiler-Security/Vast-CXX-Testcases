@@ -26,7 +26,9 @@ if config.test_db:
 
     db_driver = (""
         + f'echo %s >> {db_log} &&'
-        + f"NEO4J_USER={config.neo4j_user} NEO4J_PASSWORD={config.neo4j_password} NEO4J_ADDRESS={config.neo4j_address} NEO4J_DATABASE={config.neo4j_database} NEO4J_UID_ALLOC_SIZE={config.neo4j_uid_alloc_size} "
+        + f"NEO4J_ADDRESS={config.neo4j_address} NEO4J_UID_ALLOC_SIZE={config.neo4j_uid_alloc_size} "
+        + f"PARALLEL_THREAD={config.parallel_thread} PARALLEL_BATCH_SIZE={config.parallel_batch_size} "
+        + f"VASTDB_PROFILE_LOG={config.vastdb_profile_log} "
     )
     db_target = ' -vast-test-db'
     if config.clean_db:

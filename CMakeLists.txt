@@ -7,11 +7,12 @@ SET(VAST_TARGET "hl" CACHE STRING "target ir, hl/ll/llvm")
 
 SET(TEST_DB False CACHE STRING "enable test db")
 SET(CLEAN_DB False CACHE STRING "enable clean db before test")
-SET(NEO4J_USER "neo4j" CACHE STRING "neo4j user name")
-SET(NEO4J_PASSWORD "neo4j" CACHE STRING "neo4j user password")
-SET(NEO4J_ADDRESS "localhost:7687" CACHE STRING "neo4j address")
-SET(NEO4J_DATABASE "neo4j" CACHE STRING "neo4j database name")
+
+SET(NEO4J_ADDRESS "neo4j:@localhost:7687" CACHE STRING "neo4j address")
 SET(NEO4J_UID_ALLOC_SIZE 100 CACHE STRING "neo4j uid allocate size")
+SET(PARALLEL_THREAD 1 CACHE STRING "number of parallel thread to run a translation unit")
+SET(PARALLEL_BATCH_SIZE 1 CACHE STRING "task batch size of a thread")
+SET(VASTDB_PROFILE_LOG "/tmp/vastdb_profile.log" CACHE STRING "vastdb profile log file")
 
 configure_file(lit.site.cfg.py.in lit.site.cfg.py @ONLY)
 

@@ -8,11 +8,12 @@ config.vast_target = "@VAST_TARGET@"
 
 config.test_db = @TEST_DB@
 config.clean_db = @CLEAN_DB@
-config.neo4j_user = "@NEO4J_USER@"
-config.neo4j_password = "@NEO4J_PASSWORD@"
+
 config.neo4j_address = "@NEO4J_ADDRESS@"
-config.neo4j_database = "@NEO4J_DATABASE@"
 config.neo4j_uid_alloc_size = "@NEO4J_UID_ALLOC_SIZE@"
+config.parallel_thread = "@PARALLEL_THREAD@"
+config.parallel_batch_size = "@PARALLEL_BATCH_SIZE@"
+config.vastdb_profile_log = "@VASTDB_PROFILE_LOG@"
 
 import lit.llvm
 lit.llvm.initialize(lit_config, config)

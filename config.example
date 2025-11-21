@@ -6,11 +6,13 @@ TESTCASE="." # testcases to run, format: "test1[;test2[;test3...]]", default to 
 VAST_TARGET="hl" # target ir, hl/ll/llvm
 
 PARALLEL=1 # number of parallel process to run tests
+PARALLEL_THREAD=2 # number of parallel thread to run a translation unit
+PARALLEL_BATCH_SIZE=5 # task batch size of a thread
 
 TEST_DB=False # enable test db, True/False
 CLEAN_DB=False # enable clean db before test, True/False(WARNING: can not set to True when PARALLEL > 1)
-NEO4J_USER="neo4j" # neo4j user name
-NEO4J_PASSWORD="neo4j" # neo4j password
-NEO4J_ADDRESS="localhost:7687" # neo4j address
-NEO4J_DATABASE="neo4j" # neo4j database name
+
+NEO4J_ADDRESS="neo4j:@localhost:7687,neo4j:@localhost:7688" # neo4j address, format: "<user>:<password>@<address>:<port>[,<database2>[,<database3>...]]"
 NEO4J_UID_ALLOC_SIZE=100 # neo4j uid alloc batch size
+
+VASTDB_PROFILE_LOG="/tmp/vastdb_profile.log" # vastdb profile log file
